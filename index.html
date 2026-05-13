@@ -1,43 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>To-Do List</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>To-Do — Focus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="base.css" />
+  <link rel="stylesheet" href="components.css" />
+  <link rel="stylesheet" href="effects.css" />
+  <link rel="stylesheet" href="themes.css" />
 </head>
 <body>
+  <div class="bg-orbs" aria-hidden="true">
+    <span class="orb orb--1"></span>
+    <span class="orb orb--2"></span>
+    <span class="orb orb--3"></span>
+  </div>
+
   <main class="app">
-    <section class="card">
-      <header class="card__header">
-        <h1 class="card__title">To-Do List</h1>
-        <div class="filters" role="tablist" aria-label="Filter tasks">
-          <button type="button" class="filters__btn is-active" data-filter="all">All</button>
-          <button type="button" class="filters__btn" data-filter="active">Active</button>
-          <button type="button" class="filters__btn" data-filter="completed">Done</button>
+    <section class="card glass">
+      <header class="card__top">
+        <div class="card__brand">
+          <span class="card__logo" aria-hidden="true">✦</span>
+          <div>
+            <h1 class="card__title">Today</h1>
+            <p class="card__subtitle" id="date-line"></p>
+          </div>
+        </div>
+        <div class="card__top-actions">
+          <button type="button" class="icon-btn" id="theme-toggle" title="Toggle theme" aria-label="Toggle light and dark theme">
+            <span class="icon-btn__moon" aria-hidden="true">☾</span>
+            <span class="icon-btn__sun" aria-hidden="true">☀</span>
+          </button>
         </div>
       </header>
 
+      <div class="toolbar">
+        <div class="search-wrap">
+          <label class="sr-only" for="search-input">Search tasks</label>
+          <span class="search-wrap__icon" aria-hidden="true">⌕</span>
+          <input type="search" id="search-input" class="search-wrap__input" placeholder="Search tasks…" autocomplete="off" />
+        </div>
+        <div class="filters" role="tablist" aria-label="Filter by status">
+          <button type="button" class="chip is-active" data-filter="all">All</button>
+          <button type="button" class="chip" data-filter="active">Active</button>
+          <button type="button" class="chip" data-filter="completed">Done</button>
+        </div>
+      </div>
+
       <form class="add-form" id="add-form" autocomplete="off">
-        <label class="sr-only" for="task-input">New task</label>
-        <input
-          type="text"
-          id="task-input"
-          class="add-form__input"
-          placeholder="What needs to be done?"
-          maxlength="200"
-          required
-        />
-        <button type="submit" class="add-form__btn">Add</button>
+        <div class="add-form__row">
+          <label class="sr-only" for="task-input">New task</label>
+          <input
+            type="text"
+            id="task-input"
+            class="add-form__input"
+            placeholder="Add a task…"
+            maxlength="200"
+            required
+          />
+          <label class="sr-only" for="priority-select">Priority</label>
+          <select id="priority-select" class="add-form__select" title="Priority">
+            <option value="normal">Normal</option>
+            <option value="important">Important</option>
+            <option value="urgent">Urgent</option>
+          </select>
+          <button type="submit" class="btn btn--primary">
+            <span>Add</span>
+          </button>
+        </div>
       </form>
 
       <ul class="task-list" id="task-list" aria-live="polite"></ul>
 
-      <p class="empty-hint" id="empty-hint" hidden>No tasks yet. Add one above.</p>
+      <footer class="card__footer">
+        <div class="stats" id="stats-line" aria-live="polite"></div>
+        <div class="footer-actions">
+          <button type="button" class="btn btn--ghost btn--sm" id="clear-completed">Clear done</button>
+          <button type="button" class="btn btn--ghost btn--sm" id="export-btn" title="Download backup">Export</button>
+          <label class="btn btn--ghost btn--sm btn--file">
+            Import
+            <input type="file" id="import-input" accept="application/json,.json" hidden />
+          </label>
+        </div>
+      </footer>
+
+      <p class="empty-hint" id="empty-hint" hidden>Nothing here yet. Add your first task above.</p>
     </section>
   </main>
 
+  <div id="toast-root" class="toast-root" aria-live="polite"></div>
+
   <script src="storage.js"></script>
+  <script src="theme.js"></script>
+  <script src="toast.js"></script>
   <script src="task-manager.js"></script>
 </body>
 </html>
