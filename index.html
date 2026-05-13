@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="card">
+      <header class="card__header">
+        <h1 class="card__title">To-Do List</h1>
+        <div class="filters" role="tablist" aria-label="Filter tasks">
+          <button type="button" class="filters__btn is-active" data-filter="all">All</button>
+          <button type="button" class="filters__btn" data-filter="active">Active</button>
+          <button type="button" class="filters__btn" data-filter="completed">Done</button>
+        </div>
+      </header>
+
+      <form class="add-form" id="add-form" autocomplete="off">
+        <label class="sr-only" for="task-input">New task</label>
+        <input
+          type="text"
+          id="task-input"
+          class="add-form__input"
+          placeholder="What needs to be done?"
+          maxlength="200"
+          required
+        />
+        <button type="submit" class="add-form__btn">Add</button>
+      </form>
+
+      <ul class="task-list" id="task-list" aria-live="polite"></ul>
+
+      <p class="empty-hint" id="empty-hint" hidden>No tasks yet. Add one above.</p>
+    </section>
+  </main>
+
+  <script src="storage.js"></script>
+  <script src="task-manager.js"></script>
+</body>
+</html>
